@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
-/*    Created:      Thu Sep 26 2019                                           */
+/*    Author:       WMC Programmers                                           */
+/*    Created:      Thu Sep 30 2021                                           */
 /*    Description:  Competition Template                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
