@@ -8,6 +8,13 @@
 /*----------------------------------------------------------------------------*/
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// LFM                  motor         1               
+// LRM                  motor         2               
+// RFM                  motor         3               
+// RRM                  motor         4                
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -17,24 +24,30 @@ using namespace vex;
 // A global instance of competition
 competition Competition;
 
-// define your global instances of motors and other devices here
+//Function declaration
+void StopAll(){
+    LFM.stop();
+    LRM.stop();
+    RFM.stop();
+    RRM.stop();
+  }
 
-/*---------------------------------------------------------------------------*/
-/*                          Pre-Autonomous Functions                         */
-/*                                                                           */
-/*  You may want to perform some actions before the competition starts.      */
-/*  Do them in the following function.  You must return from this function   */
-/*  or the autonomous and usercontrol tasks will not be started.  This       */
-/*  function is only called once after the V5 has been powered on and        */
-/*  not every time that the robot is disabled.                               */
-/*---------------------------------------------------------------------------*/
+  void AllOn(){
+    LFM.spin(forward);
+    LRM.spin(forward);
+    RFM.spin(forward);
+    RRM.spin(forward);
+  }
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
 
-  // All activities that occur before the competition starts
-  // Example: clearing encoders, setting servo positions, ...
+  //Sets all motors
+  LFM.setPosition(0, degrees);
+  LRM.setPosition(0, degrees);
+  RFM.setPosition(0, degrees);
+  RRM.setPosition(0, degrees);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -66,14 +79,12 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
 
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
+    //X-Drive Controlling
+    LFM.spin(forward, Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
+    LRM.spin(forward, Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
+    RFM.spin(forward, (-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
+    RRM.spin(forward, (-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
