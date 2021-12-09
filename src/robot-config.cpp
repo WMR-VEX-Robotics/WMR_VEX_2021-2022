@@ -13,7 +13,7 @@ motor LRM = motor(PORT2, ratio18_1, false);
 motor RFM = motor(PORT3, ratio18_1, false);
 motor RRM = motor(PORT4, ratio18_1, false);
 limit LS1 = limit(Brain.ThreeWirePort.A);
-limit LS2 = limit(Brain.ThreeWirePort.b);
+limit LS2 = limit(Brain.ThreeWirePort.B);
 
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
