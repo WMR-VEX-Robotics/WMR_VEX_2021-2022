@@ -10,8 +10,8 @@ extern motor RFM;
 extern motor RRM;
 extern motor VM;
 extern motor SM;
-extern motor RRM;
-extern motor RRM;
+extern motor FL1;
+extern motor FL2;
 extern limit LS1;
 extern limit LS2;
 
