@@ -54,7 +54,7 @@ void pre_auton(void) {
   LRM.setPosition(0, degrees);
   RFM.setPosition(0, degrees);
   RRM.setPosition(0, degrees);
-  
+
   int route;
   route = (LS1.value() * 2) + (LS2.value() * 4);
 }
@@ -70,7 +70,6 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  
 }
 
 /*---------------------------------------------------------------------------*/
