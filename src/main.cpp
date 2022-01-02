@@ -122,7 +122,7 @@ void usercontrol(void) {
     RFM.spin(forward, speed * ((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
     RRM.spin(forward, speed * ((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
 
-    if (LFM.isSpinning() || LRM.isSpinning() || RFM.isSpinning() || RRM.isSpinning() ) {
+    if ((LFM.isSpinning() || LRM.isSpinning() || RFM.isSpinning() || RRM.isSpinning()) && speed < 1) {
       speed += .04;
     }
 
