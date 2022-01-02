@@ -14,7 +14,13 @@
 // LFM                  motor         1               
 // LRM                  motor         2               
 // RFM                  motor         3               
-// RRM                  motor         4                
+// RRM                  motor         4 
+// VM                   motor         5
+// SM                   motor         6
+// FL1                  motor         7
+// FL2                  motor         8
+// LS1                  limit         A
+// LS2                  limit         B
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -48,6 +54,9 @@ void pre_auton(void) {
   LRM.setPosition(0, degrees);
   RFM.setPosition(0, degrees);
   RRM.setPosition(0, degrees);
+  
+  int route;
+  route = (LS1.value() * 2) + (LS2.value() * 4);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -61,9 +70,7 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
+  
 }
 
 /*---------------------------------------------------------------------------*/
