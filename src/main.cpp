@@ -45,6 +45,12 @@ void StopAll(){
     RRM.spin(forward);
   }
 
+  //Autonomous route selection
+  int route = (LS1.value() * 2) + (LS2.value() * 4);
+
+  //variables
+  float speed = .04;
+
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -54,9 +60,6 @@ void pre_auton(void) {
   LRM.setPosition(0, degrees);
   RFM.setPosition(0, degrees);
   RRM.setPosition(0, degrees);
-
-  int route;
-  route = (LS1.value() * 2) + (LS2.value() * 4);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -70,6 +73,33 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
+  //Automomous route selection
+  switch(route){
+    case 0:
+      StopAll();
+    break;
+    case 1:
+      
+    break;
+    case 2:
+      
+    break;
+    case 3:
+      
+    break;
+    case 4:
+      
+    break;
+    case 5:
+      
+    break;
+    case 6:
+      
+    break;
+    case 7:
+      
+    break;
+  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -87,10 +117,14 @@ void usercontrol(void) {
   while (1) {
 
     //X-Drive Controlling
-    LFM.spin(forward, Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
-    LRM.spin(forward, Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
-    RFM.spin(forward, (-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
-    RRM.spin(forward, (-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value(), velocityUnits::pct);
+    LFM.spin(forward, speed * (Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    LRM.spin(forward, speed * (Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    RFM.spin(forward, speed * ((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    RRM.spin(forward, speed * ((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+
+    if (LFM.isSpinning() || LRM.isSpinning() || RFM.isSpinning() || RRM.isSpinning() ) {
+      speed += .04;
+    }
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
