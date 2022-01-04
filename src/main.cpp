@@ -151,6 +151,11 @@ void usercontrol(void) {
       AM2.setPosition(qtwo, degrees);
       y += 1;
     }
+    if (Controller1.ButtonR2.pressing()) {
+      AM1.setPosition(qone, degrees);
+      AM2.setPosition(qtwo, degrees);
+      y -= 1;
+    }
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
