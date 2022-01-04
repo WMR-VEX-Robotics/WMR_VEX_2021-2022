@@ -54,15 +54,7 @@ void StopAll(){
     CM2.spin(forward);
   }
 
-  //Autonomous route selection
-  int route = (LS1.value() * 2) + (LS2.value() * 4);
-
-  int x = 1;
-  int y = 1;
-
-  //variables
-  float speed = .04;
-
+  
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -89,6 +81,9 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
+
+  //Autonomous route selection
+  int route = (LS1.value() * 2) + (LS2.value() * 4);
   //Automomous route selection
   switch(route){
     case 0:
@@ -129,6 +124,12 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
+
+   float x = 10;
+  float y = 10;
+
+  //variables
+  float speed = .04;
   // User control code here, inside the loop
   while (1) {
 
@@ -147,17 +148,17 @@ void usercontrol(void) {
     double qone = (atan(x/y) - atan((sin(qtwo))/(.83 + cos(qtwo)))) * 180/M_PI;
 
     if (Controller1.ButtonR1.pressing()) {
-      AM1.setPosition(qone, degrees);
-      AM2.setPosition(qtwo, degrees);
-      y += 1;
+      AM1.spinToPosition(qone, degrees);
+      AM2.spinToPosition(qtwo, degrees);
+      y += 10;
     }
     if (Controller1.ButtonR2.pressing()) {
-      AM1.setPosition(qone, degrees);
-      AM2.setPosition(qtwo, degrees);
-      y -= 1;
+      AM1.spinToPosition(qone, degrees);
+      AM2.spinToPosition(qtwo, degrees);
+      y -= 10;
     }
 
-    wait(20, msec); // Sleep the task for a short amount of time to
+    wait(200, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
 }
@@ -166,6 +167,10 @@ void usercontrol(void) {
 // Main will set up the competition functions and callbacks.
 //
 int main() {
+  
+
+ 
+
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
