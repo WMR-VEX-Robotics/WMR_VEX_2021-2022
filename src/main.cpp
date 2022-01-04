@@ -15,10 +15,10 @@
 // LRM                  motor         2               
 // RFM                  motor         3               
 // RRM                  motor         4 
-// VM                   motor         5
-// SM                   motor         6
-// FL1                  motor         7
-// FL2                  motor         8
+// AM1                  motor         5
+// AM2                  motor         6
+// CM1                  motor         7
+// CM2                  motor         8
 // LS1                  limit         A
 // LS2                  limit         B
 // ---- END VEXCODE CONFIGURED DEVICES ----
@@ -36,6 +36,10 @@ void StopAll(){
     LRM.stop();
     RFM.stop();
     RRM.stop();
+    AM1.stop();
+    AM2.stop();
+    CM1.stop();
+    CM2.stop();
   }
 
   void AllOn(){
@@ -43,6 +47,10 @@ void StopAll(){
     LRM.spin(forward);
     RFM.spin(forward);
     RRM.spin(forward);
+    AM1.spin(forward);
+    AM2.spin(forward);
+    CM1.spin(forward);
+    CM2.spin(forward);
   }
 
   //Autonomous route selection
@@ -60,6 +68,10 @@ void pre_auton(void) {
   LRM.setPosition(0, degrees);
   RFM.setPosition(0, degrees);
   RRM.setPosition(0, degrees);
+  AM1.setPosition(0, degrees);
+  AM2.setPosition(0, degrees);
+  CM1.setPosition(0, degrees);
+  CM2.setPosition(0, degrees);
 }
 
 /*---------------------------------------------------------------------------*/
