@@ -24,6 +24,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
+#include <cmath>
 
 using namespace vex;
 
@@ -55,6 +56,9 @@ void StopAll(){
 
   //Autonomous route selection
   int route = (LS1.value() * 2) + (LS2.value() * 4);
+
+  int x = 1;
+  int y = 1;
 
   //variables
   float speed = .04;
@@ -136,6 +140,15 @@ void usercontrol(void) {
 
     if ((LFM.isSpinning() || LRM.isSpinning() || RFM.isSpinning() || RRM.isSpinning()) && speed < 1) {
       speed += .04;
+    } 
+
+    
+    double qtwo = (acos(((x * x) + (y * y) - 1 - (.83 * .83))/(2 * 1 * .83))) * 180/M_PI;
+    double qone = (atan(x/y) - atan((sin(qtwo))/(.83 + cos(qtwo)))) * 180/M_PI;
+
+    if (Controller1.ButtonR1.pressing()) {
+      AM1.setPosition(qone, degrees);
+      AM2.setPosition(qtwo, degrees);
     }
 
     wait(20, msec); // Sleep the task for a short amount of time to
