@@ -43,17 +43,6 @@ void StopAll(){
     CM2.stop();
   }
 
-  void AllOn(){
-    LFM.spin(forward);
-    LRM.spin(forward);
-    RFM.spin(forward);
-    RRM.spin(forward);
-    AM1.spin(forward);
-    AM2.spin(forward);
-    CM1.spin(forward);
-    CM2.spin(forward);
-  }
-
   
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
@@ -124,12 +113,12 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
-
-   float x = 10;
-  float y = 10;
-
+  
   //variables
   float speed = .04;
+
+  StopAll();
+
   // User control code here, inside the loop
   while (1) {
 
@@ -142,20 +131,17 @@ void usercontrol(void) {
     if ((LFM.isSpinning() || LRM.isSpinning() || RFM.isSpinning() || RRM.isSpinning()) && speed < 1) {
       speed += .04;
     } 
-
-    
-    double qtwo = (acos(((x * x) + (y * y) - 1 - (.83 * .83))/(2 * 1 * .83))) * 180/M_PI;
-    double qone = (atan(x/y) - atan((sin(qtwo))/(.83 + cos(qtwo)))) * 180/M_PI;
-
-    if (Controller1.ButtonR1.pressing()) {
-      AM1.spinToPosition(qone, degrees);
-      AM2.spinToPosition(qtwo, degrees);
-      y += 10;
+    else if (Controller1.ButtonR1.pressing()) {
+      AM2.spin(forward);
     }
-    if (Controller1.ButtonR2.pressing()) {
-      AM1.spinToPosition(qone, degrees);
-      AM2.spinToPosition(qtwo, degrees);
-      y -= 10;
+    else if (Controller1.ButtonR2.pressing()) {
+      AM2.spin(reverse);
+    }
+    else if (Controller1.ButtonL1.pressing()) {
+      AM1.spin(forward);
+    }
+    else if (Controller1.ButtonL2.pressing()) {
+      AM1.spin(reverse);
     }
 
     wait(200, msec); // Sleep the task for a short amount of time to
