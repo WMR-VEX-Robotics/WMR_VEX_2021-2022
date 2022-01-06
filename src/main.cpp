@@ -165,6 +165,16 @@ void usercontrol(void) {
     else if (Controller1.ButtonRight.pressing()) {
       CM2.spin(reverse);
     }
+    else if (Controller1.ButtonB.pressing()) {
+      LFM.setVelocity(50, percent);
+      LRM.setVelocity(50, percent);
+      RFM.setVelocity(50, percent);
+      RRM.setVelocity(50, percent);
+      AM1.setVelocity(50, percent);
+      AM2.setVelocity(50, percent);
+      CM1.setVelocity(50, percent);
+      CM2.setVelocity(50, percent);
+    }
     else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() || Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || Controller1.ButtonRight.pressing() != true) {
     StopAll();
     }
