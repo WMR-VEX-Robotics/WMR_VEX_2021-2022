@@ -43,6 +43,11 @@ void StopAll(){
     CM2.stop(brake);
   }
 
+long double adjustment() {
+  long double theta = AM2.position(degrees);
+  long double x =  -(std::abs(cos(theta)) + 1) * 10.125 + 20.25;
+  return x;
+}
   
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
@@ -143,6 +148,8 @@ void usercontrol(void) {
     } 
     else if (Controller1.ButtonR1.pressing()) {
       AM1.spin(forward);
+      long double rotations = adjustment() / (2 * M_PI * 10.125 * 10.125);
+      
     }
     else if (Controller1.ButtonR2.pressing()) {
       AM1.spin(reverse);
