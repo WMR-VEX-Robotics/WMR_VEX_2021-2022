@@ -57,6 +57,15 @@ void pre_auton(void) {
   AM2.setPosition(0, degrees);
   CM1.setPosition(0, degrees);
   CM2.setPosition(0, degrees);
+
+  LFM.setVelocity(100, percent);
+  LRM.setVelocity(100, percent);
+  RFM.setVelocity(100, percent);
+  RRM.setVelocity(100, percent);
+  AM1.setVelocity(100, percent);
+  AM2.setVelocity(100, percent);
+  CM1.setVelocity(100, percent);
+  CM2.setVelocity(100, percent);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -114,7 +123,7 @@ void autonomous(void) {
 
 void usercontrol(void) {
 
-  //variables
+  //variables/initialization
   float speed = .04;
 
   StopAll();
@@ -128,35 +137,35 @@ void usercontrol(void) {
     RFM.spin(forward, speed * ((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
     RRM.spin(forward, speed * ((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
 
+    //Velocity tapering and button control
     if ((LFM.isSpinning() || LRM.isSpinning() || RFM.isSpinning() || RRM.isSpinning()) && speed < 1) {
       speed += .04;
     } 
     else if (Controller1.ButtonR1.pressing()) {
-     
       AM1.spin(forward);
-      Brain.Screen.print("1");
-      Brain.Screen.newLine();
-      
     }
     else if (Controller1.ButtonR2.pressing()) {
-     
       AM1.spin(reverse);
-    Brain.Screen.print("2");
-      Brain.Screen.newLine();
-      
     }
     else if (Controller1.ButtonL1.pressing()) {
       AM2.spin(reverse);
-      Brain.Screen.print("3");
-      Brain.Screen.newLine();
     }
     else if (Controller1.ButtonL2.pressing()) {
       AM2.spin(forward);
-     Brain.Screen.print("4");
-      Brain.Screen.newLine();
     }
-    else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() || Controller1.ButtonL2.pressing() != true) {
-    AM1.stop(brake);
+    else if (Controller1.ButtonUp.pressing()) {
+      CM1.spin(forward);
+    }
+    else if (Controller1.ButtonDown.pressing()) {
+      CM1.spin(reverse);
+    }
+    else if (Controller1.ButtonLeft.pressing()) {
+      CM2.spin(forward);
+    }
+    else if (Controller1.ButtonRight.pressing()) {
+      CM2.spin(reverse);
+    }
+    else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() || Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || Controller1.ButtonRight.pressing() != true) {
     StopAll();
     }
  }
