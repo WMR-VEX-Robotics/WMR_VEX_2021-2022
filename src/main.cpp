@@ -33,14 +33,14 @@ competition Competition;
 
 //Function declaration
 void StopAll(){
-    LFM.stop();
-    LRM.stop();
-    RFM.stop();
-    RRM.stop();
-    AM1.stop();
-    AM2.stop();
-    CM1.stop();
-    CM2.stop();
+    LFM.stop(brake);
+    LRM.stop(brake);
+    RFM.stop(brake);
+    RRM.stop(brake);
+    AM1.stop(brake);
+    AM2.stop(brake);
+    CM1.stop(brake);
+    CM2.stop(brake);
   }
 
   
@@ -113,7 +113,7 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
-  
+
   //variables
   float speed = .04;
 
@@ -132,22 +132,39 @@ void usercontrol(void) {
       speed += .04;
     } 
     else if (Controller1.ButtonR1.pressing()) {
-      AM2.spin(forward);
+     
+      AM1.spin(forward);
+      Brain.Screen.print("1");
+      Brain.Screen.newLine();
+      
     }
     else if (Controller1.ButtonR2.pressing()) {
-      AM2.spin(reverse);
+     
+      AM1.spin(reverse);
+    Brain.Screen.print("2");
+      Brain.Screen.newLine();
+      
     }
     else if (Controller1.ButtonL1.pressing()) {
-      AM1.spin(forward);
+      AM2.spin(reverse);
+      Brain.Screen.print("3");
+      Brain.Screen.newLine();
     }
     else if (Controller1.ButtonL2.pressing()) {
-      AM1.spin(reverse);
+      AM2.spin(forward);
+     Brain.Screen.print("4");
+      Brain.Screen.newLine();
     }
+    else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() || Controller1.ButtonL2.pressing() != true) {
+    AM1.stop(brake);
+    StopAll();
+    }
+ }
 
-    wait(200, msec); // Sleep the task for a short amount of time to
+    wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
-}
+
 
 //
 // Main will set up the competition functions and callbacks.
