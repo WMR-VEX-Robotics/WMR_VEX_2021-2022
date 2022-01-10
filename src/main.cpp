@@ -70,8 +70,8 @@ void pre_auton(void) {
   RRM.setVelocity(100, percent);
   AM1.setVelocity(100, percent);
   AM2.setVelocity(100, percent);
-  CM1.setVelocity(100, percent);
-  CM2.setVelocity(100, percent);
+  CM1.setVelocity(10, percent);
+  CM2.setVelocity(10, percent);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -193,10 +193,6 @@ void usercontrol(void) {
       LRM.setVelocity(50, percent);
       RFM.setVelocity(50, percent);
       RRM.setVelocity(50, percent);
-      AM1.setVelocity(50, percent);
-      AM2.setVelocity(50, percent);
-      CM1.setVelocity(50, percent);
-      CM2.setVelocity(50, percent);
       b = 1;
     }
     else if (Controller1.ButtonB.pressing() && b == 1) {
@@ -204,10 +200,6 @@ void usercontrol(void) {
       LRM.setVelocity(100, percent);
       RFM.setVelocity(100, percent);
       RRM.setVelocity(100, percent);
-      AM1.setVelocity(100, percent);
-      AM2.setVelocity(100, percent);
-      CM1.setVelocity(100, percent);
-      CM2.setVelocity(100, percent);
       b = 0;
     }
     else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() || Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || Controller1.ButtonRight.pressing() != true) {
