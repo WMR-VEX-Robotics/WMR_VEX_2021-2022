@@ -70,7 +70,7 @@ void pre_auton(void) {
   RRM.setVelocity(100, percent);
   AM1.setVelocity(100, percent);
   AM2.setVelocity(100, percent);
-  CM1.setVelocity(10, percent);
+  CM1.setVelocity(25, percent);
   CM2.setVelocity(10, percent);
 }
 
