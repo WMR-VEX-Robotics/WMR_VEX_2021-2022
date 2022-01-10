@@ -46,7 +46,8 @@ void StopAll(){
 long double adjustment() {
   long double theta = AM2.position(degrees);
   long double x =  -(std::abs(cos(theta)) + 1) * 10.125 + 20.25;
-  return x;
+  long double rotations = (x / (4 * M_PI)) * 360;
+  return rotations;
 }
   
 void pre_auton(void) {
@@ -130,6 +131,7 @@ void usercontrol(void) {
 
   //variables/initialization
   float speed = .04;
+  int b = 0;
 
   StopAll();
 
@@ -148,17 +150,31 @@ void usercontrol(void) {
     } 
     else if (Controller1.ButtonR1.pressing()) {
       AM1.spin(forward);
-      long double rotations = adjustment() / (2 * M_PI * 10.125 * 10.125);
-      
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
     }
     else if (Controller1.ButtonR2.pressing()) {
       AM1.spin(reverse);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
     }
     else if (Controller1.ButtonL1.pressing()) {
       AM2.spin(reverse);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
     }
     else if (Controller1.ButtonL2.pressing()) {
       AM2.spin(forward);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
+      LFM.spinFor(adjustment(), degrees);
     }
     else if (Controller1.ButtonUp.pressing()) {
       CM1.spin(forward);
@@ -172,7 +188,7 @@ void usercontrol(void) {
     else if (Controller1.ButtonRight.pressing()) {
       CM2.spin(reverse);
     }
-    else if (Controller1.ButtonB.pressing()) {
+    else if (Controller1.ButtonB.pressing() && b == 0) {
       LFM.setVelocity(50, percent);
       LRM.setVelocity(50, percent);
       RFM.setVelocity(50, percent);
@@ -181,6 +197,18 @@ void usercontrol(void) {
       AM2.setVelocity(50, percent);
       CM1.setVelocity(50, percent);
       CM2.setVelocity(50, percent);
+      b = 1;
+    }
+    else if (Controller1.ButtonB.pressing() && b == 1) {
+      LFM.setVelocity(100, percent);
+      LRM.setVelocity(100, percent);
+      RFM.setVelocity(100, percent);
+      RRM.setVelocity(100, percent);
+      AM1.setVelocity(100, percent);
+      AM2.setVelocity(100, percent);
+      CM1.setVelocity(100, percent);
+      CM2.setVelocity(100, percent);
+      b = 0;
     }
     else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() || Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || Controller1.ButtonRight.pressing() != true) {
     StopAll();
