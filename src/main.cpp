@@ -44,9 +44,12 @@ void StopAll(){
   }
 
 long double adjustment() {
+  long double x = 0;
   long double theta = AM2.position(degrees);
-  long double x =  -(std::abs(cos(theta)) + 1) * 10.125 + 20.25;
-  long double rotations = (x / (4 * M_PI)) * 360;
+  long double angle =  -(cos(theta) + 1) * 10.125 + 20.25;
+  long double y = (angle / (4 * M_PI)) * 360;  
+  long double rotations = y - x;
+  x = y
   return rotations;
 }
   
