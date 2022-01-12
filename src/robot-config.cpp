@@ -14,8 +14,8 @@ motor RFM = motor(PORT4, ratio18_1, false);
 motor RRM = motor(PORT5, ratio18_1, false);
 motor AM1 = motor(PORT20, ratio18_1, false);
 motor AM2 = motor(PORT18, ratio18_1, true);
-motor CM1 = motor(PORT19, ratio6_1, false);
-motor CM2 = motor(PORT17, ratio18_1, false);
+motor CM1 = motor(PORT17, ratio6_1, false);
+motor CM2 = motor(PORT19, ratio18_1, false);
 limit LS1 = limit(Brain.ThreeWirePort.A);
 limit LS2 = limit(Brain.ThreeWirePort.B);
 

@@ -43,25 +43,7 @@ void StopAll(){
     CM2.stop(brake);
   }
 
-long double adjustment1() {
-  long double x = 0;
-  long double theta = AM1.position(degrees);
-  long double angle =  30.375 - 10.125 * cos(theta);
-  long double y = (angle / (4 * M_PI)) * 360;  
-  long double rotations = y - x;
-  x = y;
-  return rotations;
-}
-long double adjustment2() {
-  long double x = 0;
-  long double theta = AM2.position(degrees);
-  long double angle = 36 - 12 * cos(theta);
-  long double y = (angle / (4 * M_PI)) * 360;  
-  long double rotations = y - x;
-  x = y;
-  return rotations;
-}
-  
+
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -142,7 +124,7 @@ void autonomous(void) {
 void usercontrol(void) {
 
   //variables/initialization
-  float speed = .04;
+  
   int b = 0;
 
   StopAll();
@@ -151,42 +133,27 @@ void usercontrol(void) {
   while (1) {
 
     //X-Drive Controlling
-    LFM.spin(forward, speed * (Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
-    LRM.spin(forward, speed * (Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
-    RFM.spin(forward, speed * ((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
-    RRM.spin(forward, speed * ((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    LFM.spin(forward, (Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    LRM.spin(forward, (Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    RFM.spin(forward, ((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    RRM.spin(forward, ((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
 
     //Velocity tapering and button control
-    if ((LFM.isSpinning() || LRM.isSpinning() || RFM.isSpinning() || RRM.isSpinning()) && speed < 1) {
-      speed += .04;
-    } 
-    else if (Controller1.ButtonR1.pressing()) {
+    if (Controller1.ButtonR1.pressing()) {
       AM1.spin(forward);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
+    
     }
     else if (Controller1.ButtonR2.pressing()) {
       AM1.spin(reverse);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
+  
     }
     else if (Controller1.ButtonL1.pressing()) {
-      AM2.spin(reverse);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
-      LFM.spinFor(adjustment1(), degrees);
+      AM2.spin(forward);
+ 
     }
     else if (Controller1.ButtonL2.pressing()) {
-      AM2.spin(forward);
-      LFM.spinFor(adjustment2(), degrees);
-      LFM.spinFor(adjustment2(), degrees);
-      LFM.spinFor(adjustment2(), degrees);
-      LFM.spinFor(adjustment2(), degrees);
+      AM2.spin(reverse);
+  
     }
     else if (Controller1.ButtonUp.pressing()) {
       CM1.spin(forward);
@@ -195,10 +162,10 @@ void usercontrol(void) {
       CM1.spin(reverse);
     }
     else if (Controller1.ButtonLeft.pressing()) {
-      CM2.spin(forward);
+      CM2.spin(reverse);
     }
     else if (Controller1.ButtonRight.pressing()) {
-      CM2.spin(reverse);
+      CM2.spin(forward);
     }
     else if (Controller1.ButtonB.pressing() && b == 0) {
       LFM.setVelocity(50, percent);
@@ -214,7 +181,7 @@ void usercontrol(void) {
       RRM.setVelocity(100, percent);
       b = 0;
     }
-    else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() || Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || Controller1.ButtonRight.pressing() != true || Controller1.ButtonA.pressing() == true) {
+    else if ((Controller1.ButtonR1.pressing() && Controller1.ButtonR2.pressing() && Controller1.ButtonL1.pressing() && Controller1.ButtonL2.pressing() && Controller1.ButtonUp.pressing() && Controller1.ButtonDown.pressing() && Controller1.ButtonLeft.pressing() && Controller1.ButtonRight.pressing() != true) || Controller1.ButtonA.pressing() == true) {
     StopAll();
     }
  }
