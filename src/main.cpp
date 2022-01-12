@@ -49,7 +49,7 @@ long double adjustment() {
   long double angle =  -(cos(theta) + 1) * 10.125 + 20.25;
   long double y = (angle / (4 * M_PI)) * 360;  
   long double rotations = y - x;
-  x = y
+  x = y;
   return rotations;
 }
   
