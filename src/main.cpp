@@ -13,12 +13,12 @@
 // Controller1          controller                    
 // LFM                  motor         1               
 // LRM                  motor         2               
-// RFM                  motor         3               
-// RRM                  motor         4 
-// AM1                  motor         5
-// AM2                  motor         6
-// CM1                  motor         7
-// CM2                  motor         8
+// RFM                  motor         4               
+// RRM                  motor         5 
+// AM1                  motor         20
+// AM2                  motor         18
+// CM1                  motor         17
+// CM2                  motor         19
 // LS1                  limit         A
 // LS2                  limit         B
 // ---- END VEXCODE CONFIGURED DEVICES ----
