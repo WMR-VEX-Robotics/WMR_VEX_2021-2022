@@ -133,10 +133,10 @@ void usercontrol(void) {
   while (1) {
 
     //X-Drive Controlling
-    LFM.spin(forward, (Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
-    LRM.spin(forward, (Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
-    RFM.spin(forward, ((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
-    RRM.spin(forward, ((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()), velocityUnits::pct);
+    LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
+    LRM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
+    RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
+    RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
 
     //Velocity tapering and button control
     if (Controller1.ButtonR1.pressing()) {
