@@ -42,6 +42,12 @@ void StopAll(){
     CM1.stop(brake);
     CM2.stop(brake);
   }
+  void StopAllWithoutDrive(){
+    AM1.stop(brake);
+    AM2.stop(brake);
+    CM1.stop(brake);
+    CM2.stop(brake);
+  }
 
 
 void pre_auton(void) {
@@ -133,10 +139,10 @@ void usercontrol(void) {
   while (1) {
 
     //X-Drive Controlling
-    LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
-    LRM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
-    RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
-    RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()) / 7), velocityUnits::pct);
+    LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
+    LRM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
+    RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
+    RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
 
     //Velocity tapering and button control
     if (Controller1.ButtonR1.pressing()) {
@@ -181,8 +187,10 @@ void usercontrol(void) {
       RRM.setVelocity(100, percent);
       b = 0;
     }
-    else if ((Controller1.ButtonR1.pressing() && Controller1.ButtonR2.pressing() && Controller1.ButtonL1.pressing() && Controller1.ButtonL2.pressing() && Controller1.ButtonUp.pressing() && Controller1.ButtonDown.pressing() && Controller1.ButtonLeft.pressing() && Controller1.ButtonRight.pressing() != true) || Controller1.ButtonA.pressing() == true) {
-    StopAll();
+    else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() ||
+    Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || 
+    Controller1.ButtonRight.pressing() != true || Controller1.ButtonA.pressing() == true) {
+      StopAllWithoutDrive();
     }
  }
 
