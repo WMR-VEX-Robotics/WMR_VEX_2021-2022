@@ -42,13 +42,18 @@ void StopAll(){
     CM1.stop(brake);
     CM2.stop(brake);
   }
-  void StopAllWithoutDrive(){
+  void StopAllArm(){
     AM1.stop(brake);
     AM2.stop(brake);
     CM1.stop(brake);
     CM2.stop(brake);
   }
-
+  void StopAllChasis(){
+    LFM.stop(brake);
+    LRM.stop(brake);
+    RFM.stop(brake);
+    RRM.stop(brake);
+  }
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
@@ -147,51 +152,60 @@ void usercontrol(void) {
     //Velocity tapering and button control
     if (Controller1.ButtonR1.pressing()) {
       AM1.spin(forward);
-    
     }
-    else if (Controller1.ButtonR2.pressing()) {
+
+    if (Controller1.ButtonR2.pressing()) {
       AM1.spin(reverse);
-  
     }
-    else if (Controller1.ButtonL1.pressing()) {
+
+    if (Controller1.ButtonL1.pressing()) {
       AM2.spin(forward);
- 
     }
-    else if (Controller1.ButtonL2.pressing()) {
+
+    if (Controller1.ButtonL2.pressing()) {
       AM2.spin(reverse);
-  
     }
-    else if (Controller1.ButtonUp.pressing()) {
+
+    if (Controller1.ButtonUp.pressing()) {
       CM1.spin(forward);
     }
-    else if (Controller1.ButtonDown.pressing()) {
+
+    if (Controller1.ButtonDown.pressing()) {
       CM1.spin(reverse);
     }
-    else if (Controller1.ButtonLeft.pressing()) {
+
+    if (Controller1.ButtonLeft.pressing()) {
       CM2.spin(reverse);
     }
-    else if (Controller1.ButtonRight.pressing()) {
+
+    if (Controller1.ButtonRight.pressing()) {
       CM2.spin(forward);
     }
-    else if (Controller1.ButtonB.pressing() && b == 0) {
+
+    if (Controller1.ButtonB.pressing() && b == 0) {
       LFM.setVelocity(50, percent);
       LRM.setVelocity(50, percent);
       RFM.setVelocity(50, percent);
       RRM.setVelocity(50, percent);
       b = 1;
     }
-    else if (Controller1.ButtonB.pressing() && b == 1) {
+
+    if (Controller1.ButtonB.pressing() && b == 1) {
       LFM.setVelocity(100, percent);
       LRM.setVelocity(100, percent);
       RFM.setVelocity(100, percent);
       RRM.setVelocity(100, percent);
       b = 0;
     }
-    else if (Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() ||
+
+    if ((Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() ||
     Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || 
-    Controller1.ButtonRight.pressing() != true || Controller1.ButtonA.pressing() == true) {
-      StopAllWithoutDrive();
+    Controller1.ButtonRight.pressing() || Controller1.ButtonA.pressing() == false) == false) {
+
+      StopAllArm();
+
     }
+
  }
 
     wait(20, msec); // Sleep the task for a short amount of time to
