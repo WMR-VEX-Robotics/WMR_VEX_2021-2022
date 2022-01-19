@@ -33,26 +33,26 @@ competition Competition;
 
 //Function declaration
 void StopAll(){
-    LFM.stop(brake);
-    LRM.stop(brake);
-    RFM.stop(brake);
-    RRM.stop(brake);
-    AM1.stop(brake);
-    AM2.stop(brake);
-    CM1.stop(brake);
-    CM2.stop(brake);
+    LFM.stop(hold);
+    LRM.stop(hold);
+    RFM.stop(hold);
+    RRM.stop(hold);
+    AM1.stop(hold);
+    AM2.stop(hold);
+    CM1.stop(hold);
+    CM2.stop(hold);
   }
   void StopAllArm(){
-    AM1.stop(brake);
-    AM2.stop(brake);
-    CM1.stop(brake);
-    CM2.stop(brake);
+    AM1.stop(hold);
+    AM2.stop(hold);
+    CM1.stop(hold);
+    CM2.stop(hold);
   }
   void StopAllChasis(){
-    LFM.stop(brake);
-    LRM.stop(brake);
-    RFM.stop(brake);
-    RRM.stop(brake);
+    LFM.stop(hold);
+    LRM.stop(hold);
+    RFM.stop(hold);
+    RRM.stop(hold);
   }
 
 void pre_auton(void) {
