@@ -76,7 +76,7 @@ void pre_auton(void) {
   AM1.setVelocity(50, percent);
   AM2.setVelocity(50, percent);
   CM1.setVelocity(25, percent);
-  CM2.setVelocity(10, percent);
+  CM2.setVelocity(50, percent);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -136,12 +136,15 @@ void usercontrol(void) {
 
   //variables/initialization
   
-  int b = 0;
+  //int b = 0;
 
   StopAll();
 
   // User control code here, inside the loop
   while (1) {
+    
+    Controller1.Screen.clearLine();
+    Controller1.Screen.print(CM2.position(degrees));
 
     //X-Drive Controlling
     LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
@@ -149,39 +152,80 @@ void usercontrol(void) {
     RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
     RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
 
-    //Velocity tapering and button control
+    //Velocity tapering and button contro
     if (Controller1.ButtonR1.pressing()) {
       AM1.spin(forward);
+    }
+    else if (Controller1.ButtonR2.pressing()) {
+    }
+    else {
+      AM1.stop(hold);
     }
 
     if (Controller1.ButtonR2.pressing()) {
       AM1.spin(reverse);
     }
+    else if (Controller1.ButtonR1.pressing()) {
+    }
+    else {
+      AM1.stop(hold);
+    }
 
     if (Controller1.ButtonL1.pressing()) {
       AM2.spin(forward);
+    }
+    else if (Controller1.ButtonL2.pressing()) {
+    }
+    else {
+      AM2.stop(hold);
     }
 
     if (Controller1.ButtonL2.pressing()) {
       AM2.spin(reverse);
     }
+    else if (Controller1.ButtonL1.pressing()) {
+    }
+    else {
+      AM2.stop(hold);
+    }
 
     if (Controller1.ButtonUp.pressing()) {
       CM1.spin(forward);
+    }
+    else if (Controller1.ButtonDown.pressing()) {
+    }
+    else {
+      CM1.stop(hold);
     }
 
     if (Controller1.ButtonDown.pressing()) {
       CM1.spin(reverse);
     }
-
-    if (Controller1.ButtonLeft.pressing()) {
-      CM2.spin(reverse);
+    else if (Controller1.ButtonUp.pressing()) {
+    }
+    else {
+      CM1.stop(hold);
     }
 
-    if (Controller1.ButtonRight.pressing()) {
+    if (Controller1.ButtonLeft.pressing() && CM2.position(degrees) <= 900) {
       CM2.spin(forward);
     }
+    else if (Controller1.ButtonRight.pressing()) {
+    }
+    else {
+      CM2.stop(hold);
+    }
 
+    if (Controller1.ButtonRight.pressing() && CM2.position(degrees) >= -900) {
+      CM2.spin(reverse);
+      }
+    else if (Controller1.ButtonLeft.pressing()) {
+    }
+    else {
+      CM2.stop(hold);
+      }
+
+    /*
     if (Controller1.ButtonB.pressing() && b == 0) {
       LFM.setVelocity(50, percent);
       LRM.setVelocity(50, percent);
@@ -197,14 +241,7 @@ void usercontrol(void) {
       RRM.setVelocity(100, percent);
       b = 0;
     }
-
-    if ((Controller1.ButtonR1.pressing() || Controller1.ButtonR2.pressing() || Controller1.ButtonL1.pressing() ||
-    Controller1.ButtonL2.pressing() || Controller1.ButtonUp.pressing() || Controller1.ButtonDown.pressing() || Controller1.ButtonLeft.pressing() || 
-    Controller1.ButtonRight.pressing() || Controller1.ButtonA.pressing() == false) == false) {
-
-      StopAllArm();
-
-    }
+    */
 
  }
 
