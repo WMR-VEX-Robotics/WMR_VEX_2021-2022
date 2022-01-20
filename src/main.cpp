@@ -25,40 +25,35 @@
 
 #include "vex.h"
 #include <cmath>
-
 using namespace vex;
-
 // A global instance of competition
 competition Competition;
-
 //Function declaration
 void StopAll(){
-    LFM.stop(hold);
-    LRM.stop(hold);
-    RFM.stop(hold);
-    RRM.stop(hold);
-    AM1.stop(hold);
-    AM2.stop(hold);
-    CM1.stop(hold);
-    CM2.stop(hold);
-  }
+  LFM.stop(hold);
+  LRM.stop(hold);
+  RFM.stop(hold);
+  RRM.stop(hold);
+  AM1.stop(hold);
+  AM2.stop(hold);
+  CM1.stop(hold);
+  CM2.stop(hold);
+}
   void StopAllArm(){
-    AM1.stop(hold);
-    AM2.stop(hold);
-    CM1.stop(hold);
-    CM2.stop(hold);
-  }
+  AM1.stop(hold);
+  AM2.stop(hold);
+  CM1.stop(hold);
+  CM2.stop(hold);
+}
   void StopAllChasis(){
-    LFM.stop(hold);
-    LRM.stop(hold);
-    RFM.stop(hold);
-    RRM.stop(hold);
-  }
-
-void pre_auton(void) {
+  LFM.stop(hold);
+  LRM.stop(hold);
+  RFM.stop(hold);
+  RRM.stop(hold);
+}
+void pre_auton(void){
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-
   //Sets all motors
   LFM.setPosition(0, degrees);
   LRM.setPosition(0, degrees);
@@ -68,7 +63,6 @@ void pre_auton(void) {
   AM2.setPosition(0, degrees);
   CM1.setPosition(0, degrees);
   CM2.setPosition(0, degrees);
-
   LFM.setVelocity(100, percent);
   LRM.setVelocity(100, percent);
   RFM.setVelocity(100, percent);
@@ -89,7 +83,7 @@ void pre_auton(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-void autonomous(void) {
+void autonomous(void){
 
   //Autonomous route selection
   int route = (LS1.value() * 2) + (LS2.value() * 4);
@@ -132,144 +126,91 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-void usercontrol(void) {
-
+void usercontrol(void){
   //variables/initialization
-  
-  //int b = 0;
-
   StopAll();
-
   // User control code here, inside the loop
-  while (1) {
-    
+  while(1){
     Controller1.Screen.clearLine();
     Controller1.Screen.print(CM2.position(degrees));
-
     //X-Drive Controlling
     LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
     LRM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
     RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
     RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
-
-    //Velocity tapering and button contro
-    if (Controller1.ButtonR1.pressing()) {
+    //Velocity tapering and button control
+    if(Controller1.ButtonR1.pressing()){
       AM1.spin(forward);
     }
-    else if (Controller1.ButtonR2.pressing()) {
+    else if(Controller1.ButtonR2.pressing()){
     }
-    else {
+    else{
       AM1.stop(hold);
     }
-
-    if (Controller1.ButtonR2.pressing()) {
+    if(Controller1.ButtonR2.pressing()){
       AM1.spin(reverse);
     }
-    else if (Controller1.ButtonR1.pressing()) {
+    else if(Controller1.ButtonR1.pressing()){
     }
-    else {
+    else{
       AM1.stop(hold);
     }
-
-    if (Controller1.ButtonL1.pressing()) {
+    if(Controller1.ButtonL1.pressing()){
       AM2.spin(forward);
     }
-    else if (Controller1.ButtonL2.pressing()) {
+    else if(Controller1.ButtonL2.pressing()){
     }
-    else {
+    else{
       AM2.stop(hold);
     }
-
-    if (Controller1.ButtonL2.pressing()) {
+    if(Controller1.ButtonL2.pressing()){
       AM2.spin(reverse);
     }
-    else if (Controller1.ButtonL1.pressing()) {
+    else if(Controller1.ButtonL1.pressing()){
     }
-    else {
+    else{
       AM2.stop(hold);
     }
-
-    if (Controller1.ButtonUp.pressing()) {
+    if(Controller1.ButtonUp.pressing()){
       CM1.spin(forward);
     }
-    else if (Controller1.ButtonDown.pressing()) {
+    else if(Controller1.ButtonDown.pressing()){
     }
-    else {
+    else{
       CM1.stop(hold);
     }
-
-    if (Controller1.ButtonDown.pressing()) {
+    if(Controller1.ButtonDown.pressing()){
       CM1.spin(reverse);
     }
-    else if (Controller1.ButtonUp.pressing()) {
+    else if(Controller1.ButtonUp.pressing()){
     }
-    else {
+    else{
       CM1.stop(hold);
     }
-
-    if (Controller1.ButtonLeft.pressing() && CM2.position(degrees) <= 900) {
+    if(Controller1.ButtonLeft.pressing() && CM2.position(degrees) <= 900){
       CM2.spin(forward);
     }
-    else if (Controller1.ButtonRight.pressing()) {
+    else if(Controller1.ButtonRight.pressing()){
     }
-    else {
+    else{
       CM2.stop(hold);
     }
-
-    if (Controller1.ButtonRight.pressing() && CM2.position(degrees) >= -900) {
+    if(Controller1.ButtonRight.pressing() && CM2.position(degrees) >= -900){
       CM2.spin(reverse);
-      }
-    else if (Controller1.ButtonLeft.pressing()) {
     }
-    else {
+    else if(Controller1.ButtonLeft.pressing()){
+    }
+    else{
       CM2.stop(hold);
-      }
-
-    /*
-    if (Controller1.ButtonB.pressing() && b == 0) {
-      LFM.setVelocity(50, percent);
-      LRM.setVelocity(50, percent);
-      RFM.setVelocity(50, percent);
-      RRM.setVelocity(50, percent);
-      b = 1;
     }
-
-    if (Controller1.ButtonB.pressing() && b == 1) {
-      LFM.setVelocity(100, percent);
-      LRM.setVelocity(100, percent);
-      RFM.setVelocity(100, percent);
-      RRM.setVelocity(100, percent);
-      b = 0;
-    }
-    */
-    LFM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
-    LRM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
-    RFM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
-    RRM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
- }
-
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
   }
-
-
-//
-// Main will set up the competition functions and callbacks.
-//
-int main() {
-  
-
- 
-
-  // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(autonomous);
+  wait(20, msec); // Sleep the task for a short amount of time toc prevent wasted resources.
+}
+int main(){ // Main will set up the competition functions and callbacks.
+  Competition.autonomous(autonomous); // Set up callbacks for autonomous and driver control periods.
   Competition.drivercontrol(usercontrol);
-
-  // Run the pre-autonomous function.
-  pre_auton();
-
-  // Prevent main from exiting with an infinite loop.
-  while (true) {
+  pre_auton(); // Run the pre-autonomous function.
+  while(true){ // Prevent main from exiting with an infinite loop.
     wait(100, msec);
   }
 }
