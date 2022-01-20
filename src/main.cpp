@@ -242,7 +242,10 @@ void usercontrol(void) {
       b = 0;
     }
     */
-
+    LFM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
+    LRM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
+    RFM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
+    RRM.setVelocity((Controller1.Axis2.value() / 2 + 50), percent);
  }
 
     wait(20, msec); // Sleep the task for a short amount of time to
