@@ -28,7 +28,11 @@
 using namespace vex;
 // A global instance of competition
 competition Competition;
+
+
 //Function declaration
+
+//stop functions
 void StopAll(){
   LFM.stop(hold);
   LRM.stop(hold);
@@ -54,6 +58,7 @@ void StopAll(){
 void pre_auton(void){
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+
   //Sets all motors
   LFM.setPosition(0, degrees);
   LRM.setPosition(0, degrees);
@@ -87,7 +92,7 @@ void autonomous(void){
 
   //Autonomous route selection
   int route = (LS1.value() * 2) + (LS2.value() * 4);
-  //Automomous route selection
+
   switch(route){
     case 0:
       StopAll();
@@ -127,78 +132,74 @@ void autonomous(void){
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void){
-  //variables/initialization
+
+  //initialization
   StopAll();
-  // User control code here, inside the loop
+
   while(1){
+
+    //Screen printing
     Controller1.Screen.clearLine();
     Controller1.Screen.print(CM2.position(degrees));
+
     //X-Drive Controlling
     LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
     LRM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
     RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
     RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
+
     //Velocity tapering and button control
     if(Controller1.ButtonR1.pressing()){
       AM1.spin(forward);
     }
-    else if(Controller1.ButtonR2.pressing()){
-    }
     else{
       AM1.stop(hold);
     }
+
     if(Controller1.ButtonR2.pressing()){
       AM1.spin(reverse);
     }
-    else if(Controller1.ButtonR1.pressing()){
-    }
     else{
       AM1.stop(hold);
     }
+
     if(Controller1.ButtonL1.pressing()){
       AM2.spin(forward);
     }
-    else if(Controller1.ButtonL2.pressing()){
-    }
     else{
       AM2.stop(hold);
     }
+
     if(Controller1.ButtonL2.pressing()){
       AM2.spin(reverse);
     }
-    else if(Controller1.ButtonL1.pressing()){
-    }
     else{
       AM2.stop(hold);
     }
+
     if(Controller1.ButtonUp.pressing()){
       CM1.spin(forward);
     }
-    else if(Controller1.ButtonDown.pressing()){
-    }
     else{
       CM1.stop(hold);
     }
+
     if(Controller1.ButtonDown.pressing()){
       CM1.spin(reverse);
     }
-    else if(Controller1.ButtonUp.pressing()){
-    }
     else{
       CM1.stop(hold);
     }
+
     if(Controller1.ButtonLeft.pressing() && CM2.position(degrees) <= 900){
       CM2.spin(forward);
-    }
-    else if(Controller1.ButtonRight.pressing()){
     }
     else{
       CM2.stop(hold);
     }
+
     if(Controller1.ButtonRight.pressing() && CM2.position(degrees) >= -900){
       CM2.spin(reverse);
-    }
-    else if(Controller1.ButtonLeft.pressing()){
     }
     else{
       CM2.stop(hold);
@@ -207,9 +208,11 @@ void usercontrol(void){
   wait(20, msec); // Sleep the task for a short amount of time toc prevent wasted resources.
 }
 int main(){ // Main will set up the competition functions and callbacks.
+
   Competition.autonomous(autonomous); // Set up callbacks for autonomous and driver control periods.
   Competition.drivercontrol(usercontrol);
   pre_auton(); // Run the pre-autonomous function.
+  
   while(true){ // Prevent main from exiting with an infinite loop.
     wait(100, msec);
   }
