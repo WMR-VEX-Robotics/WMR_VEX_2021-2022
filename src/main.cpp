@@ -69,7 +69,7 @@ void pre_auton(void){
   RRM.setVelocity(100, percent);
   AM1.setVelocity(50, percent);
   AM2.setVelocity(50, percent);
-  CM1.setVelocity(25, percent);
+  CM1.setVelocity(100, percent);
   CM2.setVelocity(50, percent);
 }
 
@@ -134,10 +134,10 @@ void usercontrol(void){
     Controller1.Screen.clearLine();
     Controller1.Screen.print(CM2.position(degrees));
     //X-Drive Controlling
-    LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
-    LRM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
-    RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
-    RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() + Controller1.Axis1.value()) / 5), velocityUnits::pct);
+    LFM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() + (0.5 * Controller1.Axis1.value()) / 3)), velocityUnits::pct);
+    LRM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() + (0.5 * Controller1.Axis1.value()) / 3)), velocityUnits::pct);
+    RFM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() +  (0.5 * Controller1.Axis1.value()) / 3)), velocityUnits::pct);
+    RRM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() +  (0.5 * Controller1.Axis1.value()) / 3)), velocityUnits::pct);
     //Velocity tapering and button control
     if(Controller1.ButtonR1.pressing()){
       AM1.spin(forward);
