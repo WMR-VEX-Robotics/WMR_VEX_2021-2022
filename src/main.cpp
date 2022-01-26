@@ -98,10 +98,19 @@ void autonomous(void){
       StopAll();
     break;
     case 1:
-      
+      //pick up alliance tower
+        //move forward
+        //grab alliance tower
+        //load rings
+        //move back
+        //lift onto platform?
     break;
     case 2:
-      
+      //ram neutral tower
+        //move forard
+        //grab neutral tower
+        //reverse
+        //lift onto platform?
     break;
     case 3:
       
