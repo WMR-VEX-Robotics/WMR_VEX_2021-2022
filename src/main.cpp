@@ -93,7 +93,7 @@ void pre_auton(void){
 void autonomous(void){
 
   //Autonomous route selection
-  int route = (LS1.value() * 2) + (LS2.value() * 4);
+  int route = (LS1.value() * 1) + (LS2.value() * 2);
 
   switch(route){
     case 0:
@@ -135,18 +135,6 @@ void autonomous(void){
       RRM.spinFor(-1500, degrees);
     break;
     case 3:
-      
-    break;
-    case 4:
-      
-    break;
-    case 5:
-      
-    break;
-    case 6:
-      
-    break;
-    case 7:
       
     break;
   }
