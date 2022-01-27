@@ -106,16 +106,16 @@ void autonomous(void){
         //load rings?
         //move back
         //lift onto platform?
-      LFM.spinFor(950, degrees),
-      RFM.spinFor(950, degrees),
-      LRM.spinFor(950, degrees),
+      LFM.startSpinFor(950, degrees);
+      RFM.startSpinFor(950, degrees);
+      LRM.startSpinFor(950, degrees);
       RRM.spinFor(950, degrees);
       P1.open();
       P2.open();
-      LFM.spinFor(-900, degrees),
-      RFM.spinFor(-900, degrees),
-      LRM.spinFor(-900, degrees),
-      RRM.spinFor(-900, degrees);
+      LFM.startSpinFor(-900, degrees);
+      RFM.startSpinFor(-900, degrees);
+      LRM.startSpinFor(-900, degrees);
+      RRM.startSpinFor(-900, degrees);
     break;
     case 2:
       //ram neutral tower
@@ -123,16 +123,16 @@ void autonomous(void){
         //grab neutral tower
         //reverse
         //lift onto platform?
-      LFM.spinFor(2014, degrees),
-      RFM.spinFor(2014, degrees),
-      LRM.spinFor(2014, degrees),
+      LFM.startSpinFor(2014, degrees);
+      RFM.startSpinFor(2014, degrees);
+      LRM.startSpinFor(2014, degrees);
       RRM.spinFor(2014, degrees);
       P1.open();
       P2.open();
-      LFM.spinFor(-1500, degrees),
-      RFM.spinFor(-1500, degrees),
-      LRM.spinFor(-1500, degrees),
-      RRM.spinFor(-1500, degrees);
+      LFM.startSpinFor(-1950, degrees);
+      RFM.startSpinFor(-1950, degrees);
+      LRM.startSpinFor(-1950, degrees);
+      RRM.startSpinFor(-1950, degrees);
     break;
     case 3:
       
