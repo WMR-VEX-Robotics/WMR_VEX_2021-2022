@@ -26,7 +26,7 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
-//#include <cmath>
+#include <cmath>
 using namespace vex;
 // A global instance of competition
 competition Competition;
@@ -170,14 +170,23 @@ void usercontrol(void){
   while(1){
 
     //Screen printing
-    Controller1.Screen.clearLine();
-    Controller1.Screen.print(CM2.position(degrees));
 
+    double velocityControl1 = (Controller1.Axis2.position() + 100);
+    double velocityControl2 = (velocityControl1 / 300);
+    Controller1.Screen.clearLine();
+    Controller1.Screen.print(velocityControl2);
+    
     //X-Drive Controlling
+    /*
     LFM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() - Controller1.Axis1.value())), percent);
     LRM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() - Controller1.Axis1.value())), percent);
     RFM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() -  Controller1.Axis1.value())), percent);
     RRM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() -  Controller1.Axis1.value())), percent);
+    */
+    LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
+    LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
+    RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  Controller1.Axis1.position())) * velocityControl2, percent);
+    RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  Controller1.Axis1.position())) * velocityControl2, percent);
     //Velocity tapering and button control
     if(Controller1.ButtonR1.pressing()){
       AM1.spin(forward);
