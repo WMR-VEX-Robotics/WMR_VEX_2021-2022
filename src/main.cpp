@@ -135,7 +135,19 @@ void autonomous(void){
       RRM.startSpinFor(-1950, degrees);
     break;
     case 3:
-      
+      //DANCE
+      LFM.startSpinFor(100, degrees);
+      RFM.startSpinFor(100, degrees);
+      LRM.startSpinFor(100, degrees);
+      RRM.spinFor(100, degrees);
+      LFM.startSpinFor(-900, degrees);
+      RFM.startSpinFor(900, degrees);
+      LRM.startSpinFor(900, degrees);
+      RRM.startSpinFor(-900, degrees);
+      AM1.startSpinFor(100, degrees);
+      AM2.startSpinFor(100, degrees);
+      CM1.startSpinFor(100, degrees);
+      CM2.startSpinFor(100, degrees);
     break;
   }
 }
