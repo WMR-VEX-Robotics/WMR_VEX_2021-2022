@@ -172,9 +172,9 @@ void usercontrol(void){
     //Screen printing
 
     double velocityControl1 = (Controller1.Axis2.position() + 100);
-    double velocityControl2 = (velocityControl1 / 300);
+    double velocityControl2 = (velocityControl1 / 200);
     Controller1.Screen.clearLine();
-    Controller1.Screen.print(velocityControl2);
+    Controller1.Screen.print(velocityControl2 * 100);
     
     //X-Drive Controlling
     /*
