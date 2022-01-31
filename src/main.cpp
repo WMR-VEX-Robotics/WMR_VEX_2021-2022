@@ -178,10 +178,10 @@ void usercontrol(void){
     
     //X-Drive Controlling
     /*
-    LFM.spin(forward, (((-Controller1.Axis3.value()) - Controller1.Axis4.value() - Controller1.Axis1.value())), percent);
-    LRM.spin(forward, (((-Controller1.Axis3.value()) + Controller1.Axis4.value() - Controller1.Axis1.value())), percent);
-    RFM.spin(forward, ((Controller1.Axis3.value() - Controller1.Axis4.value() -  Controller1.Axis1.value())), percent);
-    RRM.spin(forward, ((Controller1.Axis3.value() + Controller1.Axis4.value() -  Controller1.Axis1.value())), percent);
+    LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
+    LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
+    RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
+    RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
     */
     LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
     LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
