@@ -11,14 +11,14 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// LFM                  motor         7               
-// LRM                  motor         9               
-// RFM                  motor         11               
-// RRM                  motor         2 
-// AM1                  motor         20
-// AM2                  motor         18
-// CM1                  motor         17
-// CM2                  motor         19
+// LFM                  motor         11              
+// LRM                  motor         20               
+// RFM                  motor         9               
+// RRM                  motor         10
+// AM1                  motor         DNE
+// AM2                  motor         DNE
+// CM1                  motor         DNE
+// CM2                  motor         DNE
 // LS1                  limit         A
 // LS2                  limit         B
 // P1                   pneumatics    C
