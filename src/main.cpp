@@ -57,6 +57,32 @@ void StopAll(){
   RFM.stop(hold);
   RRM.stop(hold);
 }
+
+void FoWo(){
+  LFM.startSpinFor(-360, degrees);
+  RFM.startSpinFor(360, degrees);
+  LRM.startSpinFor(-360, degrees);
+  RRM.spinFor(360, degrees);
+}
+void BaWo(){
+  LFM.startSpinFor(360, degrees);
+  RFM.startSpinFor(-360, degrees);
+  LRM.startSpinFor(360, degrees);
+  RRM.spinFor(-360, degrees);
+}
+void RiWo(){
+  LFM.startSpinFor(-360, degrees);
+  RFM.startSpinFor(-360, degrees);
+  LRM.startSpinFor(360, degrees);
+  RRM.spinFor(360, degrees);  
+}
+void LeWo(){
+  LFM.startSpinFor(360, degrees);
+  RFM.startSpinFor(360, degrees);
+  LRM.startSpinFor(-360, degrees);
+  RRM.spinFor(-360, degrees);
+}
+
 void pre_auton(void){
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -70,10 +96,10 @@ void pre_auton(void){
   AM2.setPosition(0, degrees);
   CM1.setPosition(0, degrees);
   CM2.setPosition(0, degrees);
-  LFM.setVelocity(100, percent);
-  LRM.setVelocity(100, percent);
-  RFM.setVelocity(100, percent);
-  RRM.setVelocity(100, percent);
+  LFM.setVelocity(50, percent);
+  LRM.setVelocity(50, percent);
+  RFM.setVelocity(50, percent);
+  RRM.setVelocity(50, percent);
   AM1.setVelocity(50, percent);
   AM2.setVelocity(50, percent);
   CM1.setVelocity(100, percent);
@@ -106,16 +132,16 @@ void autonomous(void){
         //load rings?
         //move back
         //lift onto platform?
-      LFM.startSpinFor(950, degrees);
+      LFM.startSpinFor(-950, degrees);
       RFM.startSpinFor(950, degrees);
-      LRM.startSpinFor(950, degrees);
+      LRM.startSpinFor(-950, degrees);
       RRM.spinFor(950, degrees);
       P1.open();
       P2.open();
-      LFM.startSpinFor(-900, degrees);
+      LFM.startSpinFor(900, degrees);
       RFM.startSpinFor(-900, degrees);
-      LRM.startSpinFor(-900, degrees);
-      RRM.startSpinFor(-900, degrees);
+      LRM.startSpinFor(900, degrees);
+      RRM.spinFor(-900, degrees);
     break;
     case 2:
       //ram neutral tower
@@ -123,31 +149,31 @@ void autonomous(void){
         //grab neutral tower
         //reverse
         //lift onto platform?
-      LFM.startSpinFor(2014, degrees);
+      LFM.startSpinFor(-2014, degrees);
       RFM.startSpinFor(2014, degrees);
-      LRM.startSpinFor(2014, degrees);
+      LRM.startSpinFor(-2014, degrees);
       RRM.spinFor(2014, degrees);
       P1.open();
       P2.open();
-      LFM.startSpinFor(-1950, degrees);
+      LFM.startSpinFor(1950, degrees);
       RFM.startSpinFor(-1950, degrees);
-      LRM.startSpinFor(-1950, degrees);
+      LRM.startSpinFor(1950, degrees);
       RRM.startSpinFor(-1950, degrees);
     break;
     case 3:
       //DANCE
-      LFM.startSpinFor(100, degrees);
-      RFM.startSpinFor(100, degrees);
-      LRM.startSpinFor(100, degrees);
-      RRM.spinFor(100, degrees);
-      LFM.startSpinFor(-900, degrees);
+      LFM.startSpinFor(-360, degrees);
+      RFM.startSpinFor(360, degrees);
+      LRM.startSpinFor(-360, degrees);
+      RRM.spinFor(360, degrees);
+      LFM.startSpinFor(900, degrees);
       RFM.startSpinFor(900, degrees);
       LRM.startSpinFor(900, degrees);
-      RRM.startSpinFor(-900, degrees);
-      AM1.startSpinFor(100, degrees);
-      AM2.startSpinFor(100, degrees);
-      CM1.startSpinFor(100, degrees);
-      CM2.startSpinFor(100, degrees);
+      RRM.spinFor(900, degrees);
+      LFM.startSpinFor(-900, degrees);
+      RFM.startSpinFor(-900, degrees);
+      LRM.startSpinFor(-900, degrees);
+      RRM.spinFor(-900, degrees);
     break;
   }
 }
@@ -167,6 +193,8 @@ void usercontrol(void){
   //initialization
   StopAll();
 
+      
+
   while(1){
 
     //Screen printing
@@ -178,15 +206,32 @@ void usercontrol(void){
     
     //X-Drive Controlling
     /*
-    LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
-    LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
-    RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
-    RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
+    LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
+    LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
+    RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
+    RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
     */
     LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
     LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
     RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  Controller1.Axis1.position())) * velocityControl2, percent);
     RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  Controller1.Axis1.position())) * velocityControl2, percent);
+    
+    //Movement Stuff
+    if (Controller1.ButtonUp.pressing()){
+      FoWo();
+    }
+
+    if (Controller1.ButtonDown.pressing()){
+      BaWo();
+    }
+    if (Controller1.ButtonLeft.pressing()){
+      LeWo();
+    }
+
+    if (Controller1.ButtonRight.pressing()){
+      RiWo();
+    }
+
     //Velocity tapering and button control
     if(Controller1.ButtonR1.pressing()){
       AM1.spin(forward);
