@@ -187,6 +187,7 @@ void usercontrol(void){
 
   //initialization
   StopAll();
+  
 
   while(1){
 
@@ -212,9 +213,19 @@ void usercontrol(void){
     //Velocity tapering and button control
     if(Controller1.ButtonR1.pressing()){
       AM1.spin(forward);
+
+      for(int i = 0; i < 20; i++){
+      P1.open();
+      wait(.25, sec);
+      P2.open();
+      wait(.5, sec);
+      P2.close();
+      wait(.25, sec);
+      P1.close();
+      wait(.5, sec);
+      }
     }
     else{
-      AM1.stop(hold);
     }
 
     if(Controller1.ButtonR2.pressing()){
