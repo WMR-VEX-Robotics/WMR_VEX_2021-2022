@@ -12,14 +12,11 @@ motor LFM = motor(PORT11, ratio18_1, false);
 motor LRM = motor(PORT20, ratio18_1, false);
 motor RFM = motor(PORT7, ratio18_1, false);
 motor RRM = motor(PORT9, ratio18_1, false);
-motor AM1 = motor(PORT21, ratio18_1, false);
-motor AM2 = motor(PORT18, ratio18_1, true);
-motor CM1 = motor(PORT17, ratio6_1, false);
-motor CM2 = motor(PORT19, ratio18_1, false);
+motor CM = motor(PORT17, ratio6_1, false);
 limit LS1 = limit(Brain.ThreeWirePort.A);
 limit LS2 = limit(Brain.ThreeWirePort.B);
-pneumatics P1 = pneumatics(Brain.ThreeWirePort.C);
-pneumatics P2 = pneumatics(Brain.ThreeWirePort.D);
+pneumatics P1 = pneumatics(Brain.ThreeWirePort.F);
+pneumatics P2 = pneumatics(Brain.ThreeWirePort.G);
 
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;

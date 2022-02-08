@@ -15,14 +15,11 @@
 // LRM                  motor         20               
 // RFM                  motor         9               
 // RRM                  motor         10
-// AM1                  motor         DNE
-// AM2                  motor         DNE
-// CM1                  motor         DNE
-// CM2                  motor         DNE
+// CM2                  motor         17
 // LS1                  limit         A
 // LS2                  limit         B
-// P1                   pneumatics    C
-// P2                   pneumatics    D
+// P1                   pneumatics    F
+// P2                   pneumatics    G
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -40,16 +37,7 @@ void StopAll(){
   LRM.stop(hold);
   RFM.stop(hold);
   RRM.stop(hold);
-  AM1.stop(hold);
-  AM2.stop(hold);
-  CM1.stop(hold);
-  CM2.stop(hold);
-}
-  void StopAllArm(){
-  AM1.stop(hold);
-  AM2.stop(hold);
-  CM1.stop(hold);
-  CM2.stop(hold);
+  CM.stop(hold);
 }
   void StopAllChasis(){
   LFM.stop(hold);
@@ -91,18 +79,12 @@ void pre_auton(void){
   LRM.setPosition(0, degrees);
   RFM.setPosition(0, degrees);
   RRM.setPosition(0, degrees);
-  AM1.setPosition(0, degrees);
-  AM2.setPosition(0, degrees);
-  CM1.setPosition(0, degrees);
-  CM2.setPosition(0, degrees);
+  CM.setPosition(0, degrees);
   LFM.setVelocity(100, percent);
   LRM.setVelocity(100, percent);
   RFM.setVelocity(100, percent);
   RRM.setVelocity(100, percent);
-  AM1.setVelocity(50, percent);
-  AM2.setVelocity(50, percent);
-  CM1.setVelocity(100, percent);
-  CM2.setVelocity(50, percent);
+  CM.setVelocity(100, percent);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -136,11 +118,18 @@ void autonomous(void){
       LRM.startSpinFor(-950, degrees);
       RRM.spinFor(950, degrees);
       P1.open();
+      wait(.25, sec);
       P2.open();
+      wait(.5, sec);
+      P2.close();
+      wait(.25, sec);
+      P1.close();
+      wait(.5, sec);
       LFM.startSpinFor(900, degrees);
       RFM.startSpinFor(-900, degrees);
       LRM.startSpinFor(900, degrees);
       RRM.startSpinFor(-900, degrees);
+      
     break;
     case 2:
       //ram neutral tower
@@ -153,7 +142,13 @@ void autonomous(void){
       LRM.startSpinFor(-2014, degrees);
       RRM.spinFor(2014, degrees);
       P1.open();
+      wait(.25, sec);
       P2.open();
+      wait(.5, sec);
+      P2.close();
+      wait(.25, sec);
+      P1.close();
+      wait(.5, sec);
       LFM.startSpinFor(1950, degrees);
       RFM.startSpinFor(-1950, degrees);
       LRM.startSpinFor(1950, degrees);
@@ -190,6 +185,7 @@ void usercontrol(void){
   
 
   while(1){
+    
 
     //Screen printing
 
@@ -212,9 +208,6 @@ void usercontrol(void){
     
     //Velocity tapering and button control
     if(Controller1.ButtonR1.pressing()){
-      AM1.spin(forward);
-
-      for(int i = 0; i < 20; i++){
       P1.open();
       wait(.25, sec);
       P2.open();
@@ -223,32 +216,29 @@ void usercontrol(void){
       wait(.25, sec);
       P1.close();
       wait(.5, sec);
-      }
     }
-    else{
-    }
-
     if(Controller1.ButtonR2.pressing()){
-      AM1.spin(reverse);
+      P1.close();
+      wait(.25, sec);
+      P2.close();
+      wait(.5, sec);
+      P2.open();
+      wait(.25, sec);
+      P1.open();
+      wait(.5, sec);
     }
-    else{
-      AM1.stop(hold);
-    }
-
     if(Controller1.ButtonL1.pressing()){
-      AM2.spin(forward);
+      CM.spin(reverse);
     }
     else{
-      AM2.stop(hold);
+      CM.spin(forward);
     }
-
     if(Controller1.ButtonL2.pressing()){
-      AM2.spin(reverse);
+     
     }
     else{
-      AM2.stop(hold);
+     
     }
-
     if(Controller1.ButtonUp.pressing()){
       FoWo();
     }
