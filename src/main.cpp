@@ -116,6 +116,8 @@ void autonomous(void){
         //load rings?
         //move back
         //lift onto platform?
+      AM1.startSpinFor(25, degrees);
+      AM2.spinFor(25, degrees);
       LFM.startSpinFor(-950, degrees);
       RFM.startSpinFor(950, degrees);
       LRM.startSpinFor(-950, degrees);
@@ -140,6 +142,8 @@ void autonomous(void){
         //grab neutral tower
         //reverse
         //lift onto platform?
+      AM1.startSpinFor(25, degrees);
+      AM2.spinFor(25, degrees);
       LFM.startSpinFor(-2014, degrees);
       RFM.startSpinFor(2014, degrees);
       LRM.startSpinFor(-2014, degrees);
@@ -159,6 +163,8 @@ void autonomous(void){
     break;
     case 3:
       //DANCE
+      AM1.startSpinFor(25, degrees);
+      AM2.spinFor(25, degrees);
       LFM.startSpinFor(-360, degrees);
       RFM.startSpinFor(360, degrees);
       LRM.startSpinFor(-360, degrees);
