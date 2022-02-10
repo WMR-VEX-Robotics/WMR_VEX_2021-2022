@@ -223,24 +223,30 @@ void usercontrol(void){
       wait(.5, sec);
     }
     if(Controller1.ButtonR2.pressing()){
-      P1.close();
-      wait(.25, sec);
       P2.close();
+      wait(.25, sec);
+      P1.close();
       wait(.5, sec);
     }
-    if(Controller1.ButtonL1.pressing()){
+    if(Controller1.ButtonX.pressing()){
       CM.spin(reverse);
     }
     else{
       CM.spin(forward);
     }
-    if(Controller1.ButtonL2.pressing()){
-     AM1.startSpinFor(420, degrees);
-     AM2.startSpinFor(420, degrees);
+    if(Controller1.ButtonL1.pressing()){
+     AM1.spin(forward);
+     AM2.spin(forward);
+    }
+    else if(Controller1.ButtonL2.pressing()){
+     AM1.spin(reverse);
+     AM2.spin(reverse);
     }
     else{
-     
+      AM1.stop(hold);
+      AM2.stop(hold);
     }
+     
     if(Controller1.ButtonUp.pressing()){
       FoWo();
     }
@@ -261,7 +267,10 @@ void usercontrol(void){
       P1.close();
       P2.close();
     }
-  }
+    if(Controller1.ButtonY.pressing()){
+      CM.stop(hold);
+    }
+}
   wait(20, msec); // Sleep the task for a short amount of time toc prevent wasted resources.
 }
 int main(){ // Main will set up the competition functions and callbacks.
