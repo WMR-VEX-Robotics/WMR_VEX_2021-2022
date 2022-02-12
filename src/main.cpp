@@ -106,8 +106,13 @@ void autonomous(void){
 
   switch(route){
     case 0:
-      StopAll();
-
+     /*  P2.open();
+      wait(.25, sec);
+      
+       P1.close();
+      wait(.5, sec);
+*/
+CM.spin(forward);
     break;
     case 1:
       //pick up alliance tower
@@ -115,18 +120,16 @@ void autonomous(void){
         //grab alliance tower
         //load rings?
         //move back
-        //lift onto platform?
-      AM1.startSpinFor(25, degrees);
-      AM2.spinFor(25, degrees);
+        //lift onto platform?;
       LFM.startSpinFor(-950, degrees);
       RFM.startSpinFor(950, degrees);
       LRM.startSpinFor(-950, degrees);
       RRM.spinFor(950, degrees);
-      P1.open();
+      P1.close();
       wait(.25, sec);
       P2.open();
       wait(.5, sec);
-      P1.close();
+      P1.open();
       wait(.25, sec);
       P2.close();
       CM.startSpinFor(1070, degrees);
@@ -142,29 +145,33 @@ void autonomous(void){
         //grab neutral tower
         //reverse
         //lift onto platform?
-      AM1.startSpinFor(25, degrees);
+      /*AM1.startSpinFor(25, degrees);
       AM2.spinFor(25, degrees);
       LFM.startSpinFor(-2014, degrees);
       RFM.startSpinFor(2014, degrees);
       LRM.startSpinFor(-2014, degrees);
       RRM.spinFor(2014, degrees);
-      P1.open();
+      P1.close();
       wait(.25, sec);
       P2.open();
       wait(.5, sec);
-      P1.close();
+      P1.open();
       wait(.25, sec);
       P2.close();
       CM.startSpinFor(1070, degrees);
       LFM.startSpinFor(1950, degrees);
       RFM.startSpinFor(-1950, degrees);
       LRM.startSpinFor(1950, degrees);
-      RRM.startSpinFor(-1950, degrees);
+      RRM.startSpinFor(-1950, degrees);*/
+      P2.open();
+      wait(.25, sec);
+      
+       P1.close();
+      wait(.5, sec);
+
     break;
     case 3:
       //DANCE
-      AM1.startSpinFor(25, degrees);
-      AM2.spinFor(25, degrees);
       LFM.startSpinFor(-360, degrees);
       RFM.startSpinFor(360, degrees);
       LRM.startSpinFor(-360, degrees);
@@ -188,10 +195,8 @@ void autonomous(void){
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void){
-
+ P2.open();
   //initialization
-  StopAll();
-  
 
   while(1){
     
@@ -210,22 +215,20 @@ void usercontrol(void){
     RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
     RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
     */
-    LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
-    LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - Controller1.Axis1.position())) * velocityControl2, percent);
-    RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  Controller1.Axis1.position())) * velocityControl2, percent);
-    RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  Controller1.Axis1.position())) * velocityControl2, percent);
+    LFM.spin(forward, (-((-Controller1.Axis3.position()) - Controller1.Axis4.position() + Controller1.Axis1.position())) * velocityControl2, percent);
+    LRM.spin(forward, (-((-Controller1.Axis3.position()) + Controller1.Axis4.position() + Controller1.Axis1.position())) * velocityControl2, percent);
+    RFM.spin(forward, (-(Controller1.Axis3.position() - Controller1.Axis4.position() +  Controller1.Axis1.position())) * velocityControl2, percent);
+    RRM.spin(forward, (-(Controller1.Axis3.position() + Controller1.Axis4.position() +  Controller1.Axis1.position())) * velocityControl2, percent);
     
     //Velocity tapering and button control
     if(Controller1.ButtonR1.pressing()){
-      P1.open();
-      wait(.25, sec);
-      P2.open();
+     P1.close();
       wait(.5, sec);
+      
+    
     }
     if(Controller1.ButtonR2.pressing()){
-      P2.close();
-      wait(.25, sec);
-      P1.close();
+      P1.open();
       wait(.5, sec);
     }
     if(Controller1.ButtonX.pressing()){
