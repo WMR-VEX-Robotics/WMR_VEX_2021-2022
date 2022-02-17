@@ -263,10 +263,12 @@ void usercontrol(void){
       wait(.5, sec);
     }
     if(Controller1.ButtonLeft.pressing()){
-      PM.spin(forward);
+      PM.spinFor(180, degrees);
+      CM.spinFor(720, degrees);
     }
     if(Controller1.ButtonRight.pressing()){
-      PM.spin(reverse);
+      PM.spinFor(-180, degrees);
+      CM.spinFor(-720, degrees);
     }
 
 }
