@@ -131,11 +131,10 @@ CM.spin(forward);
       RRM.spinFor(950, degrees);
       P1.close();
       wait(.25, sec);
-      P2.open();
-      wait(.5, sec);
+      
       P1.open();
       wait(.25, sec);
-      P2.close();
+    
       CM.startSpinFor(1070, degrees);
       LFM.startSpinFor(900, degrees);
       RFM.startSpinFor(-900, degrees);
@@ -167,8 +166,7 @@ CM.spin(forward);
       RFM.startSpinFor(-1950, degrees);
       LRM.startSpinFor(1950, degrees);
       RRM.startSpinFor(-1950, degrees);*/
-      P2.open();
-      wait(.25, sec);
+      
       
        P1.close();
       wait(.5, sec);
@@ -199,7 +197,7 @@ CM.spin(forward);
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void){
- P2.open();
+ 
   //initialization
 
   while(1){

@@ -19,7 +19,7 @@ motor PM = motor(PORT5, ratio18_1, true);
 limit LS1 = limit(Brain.ThreeWirePort.A);
 limit LS2 = limit(Brain.ThreeWirePort.B);
 pneumatics P1 = pneumatics(Brain.ThreeWirePort.F);
-pneumatics P2 = pneumatics(Brain.ThreeWirePort.G);
+
 
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;

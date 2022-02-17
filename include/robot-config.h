@@ -15,7 +15,7 @@ extern motor PM;
 extern limit LS1;
 extern limit LS2;
 extern pneumatics P1;
-extern pneumatics P2;
+
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
