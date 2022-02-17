@@ -11,6 +11,7 @@ extern motor RRM;
 extern motor CM;
 extern motor AM1;
 extern motor AM2;
+extern motor PM;
 extern limit LS1;
 extern limit LS2;
 extern pneumatics P1;

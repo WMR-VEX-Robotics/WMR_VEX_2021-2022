@@ -18,6 +18,7 @@
 // CM                   motor         17
 // AM1                  motor         17
 // AM2                  motor         17
+// PM                   motor         5
 // LS1                  limit         A
 // LS2                  limit         B
 // P1                   pneumatics    F
@@ -48,7 +49,8 @@ void StopAll(){
   RRM.stop(hold);
 }
 
-void FoWo(){
+/*
+  void FoWo(){
   LFM.startSpinFor(-180, degrees);
   RFM.startSpinFor(180, degrees);
   LRM.startSpinFor(-180, degrees);
@@ -71,7 +73,9 @@ void LeWo(){
   RFM.startSpinFor(180, degrees);
   LRM.startSpinFor(-180, degrees);
   RRM.spinFor(-180, degrees);
+  
 }
+*/
 void pre_auton(void){
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -209,34 +213,29 @@ void usercontrol(void){
     Controller1.Screen.print(velocityControl2 * 100);
     
     //X-Drive Controlling
+    
+    LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
+    LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
+    RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
+    RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
     /*
-    LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
-    LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
-    RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
-    RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2)) * velocityControl2, percent);
-    */
     LFM.spin(forward, (-((-Controller1.Axis3.position()) - Controller1.Axis4.position() + Controller1.Axis1.position())) * velocityControl2, percent);
     LRM.spin(forward, (-((-Controller1.Axis3.position()) + Controller1.Axis4.position() + Controller1.Axis1.position())) * velocityControl2, percent);
     RFM.spin(forward, (-(Controller1.Axis3.position() - Controller1.Axis4.position() +  Controller1.Axis1.position())) * velocityControl2, percent);
     RRM.spin(forward, (-(Controller1.Axis3.position() + Controller1.Axis4.position() +  Controller1.Axis1.position())) * velocityControl2, percent);
-    
+    */
     //Velocity tapering and button control
-    if(Controller1.ButtonR1.pressing()){
-     P1.close();
-      wait(.5, sec);
-      
-    
-    }
-    if(Controller1.ButtonR2.pressing()){
-      P1.open();
-      wait(.5, sec);
-    }
-    if(Controller1.ButtonX.pressing()){
-      CM.spin(reverse);
-    }
-    else{
+
+    if(Controller1.ButtonB.pressing()){
       CM.spin(forward);
     }
+    else if (Controller1.ButtonA.pressing()) {
+      CM.spin(reverse);
+    }
+    else {
+      CM.stop(hold);
+    }
+
     if(Controller1.ButtonL1.pressing()){
      AM1.spin(forward);
      AM2.spin(forward);
@@ -249,30 +248,29 @@ void usercontrol(void){
       AM1.stop(hold);
       AM2.stop(hold);
     }
+    if ((Controller1.Axis3.value() != 0) || (Controller1.Axis4.value() != 0) || (Controller1.Axis1.value() != 0) == true) {
+    }
+    else {
+      StopAllChasis();
+    }
+
      
     if(Controller1.ButtonUp.pressing()){
-      FoWo();
+      P1.close();
+      wait(.5, sec);
     }
+
     if(Controller1.ButtonDown.pressing()){
-      BaWo();
+      P1.open();
+      wait(.5, sec);
     }
     if(Controller1.ButtonLeft.pressing()){
-      LeWo();
+      PM.spin(forward);
     }
     if(Controller1.ButtonRight.pressing()){
-      RiWo();
+      PM.spin(reverse);
     }
-    if(Controller1.ButtonA.pressing()){
-      P1.open();
-      P2.open();
-    }
-    else if(Controller1.ButtonB.pressing()){
-      P1.close();
-      P2.close();
-    }
-    if(Controller1.ButtonY.pressing()){
-      CM.stop(hold);
-    }
+
 }
   wait(20, msec); // Sleep the task for a short amount of time toc prevent wasted resources.
 }
