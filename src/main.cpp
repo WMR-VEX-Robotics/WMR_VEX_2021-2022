@@ -18,7 +18,7 @@
 // CM                   motor         17
 // AM1                  motor         17
 // AM2                  motor         17
-// PM                   motor         5
+// PM                   motor         12
 // LS1                  limit         A
 // LS2                  limit         B
 // P1                   pneumatics    F
@@ -26,11 +26,9 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
-
 using namespace vex;
 // A global instance of competition
 competition Competition;
-
 
 //Function declaration
 
@@ -73,7 +71,6 @@ void LeWo(){
   RFM.startSpinFor(180, degrees);
   LRM.startSpinFor(-180, degrees);
   RRM.spinFor(-180, degrees);
-  
 }
 */
 void pre_auton(void){
@@ -104,20 +101,19 @@ void pre_auton(void){
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void){
-
   //Autonomous route selection
   int route = (LS1.value() * 1) + (LS2.value() * 2);
-
   switch(route){
     case 0:
-     /*  P2.open();
+      /*
+      P2.open();
       wait(.25, sec);
       
-       P1.close();
+      P1.close();
       wait(.5, sec);
-*/
-CM.spin(forward);
-    break;
+      */
+      CM.spin(forward);
+      break;
     case 1:
       //pick up alliance tower
         //move forward
@@ -131,24 +127,22 @@ CM.spin(forward);
       RRM.spinFor(950, degrees);
       P1.close();
       wait(.25, sec);
-      
       P1.open();
       wait(.25, sec);
-    
       CM.startSpinFor(1070, degrees);
       LFM.startSpinFor(900, degrees);
       RFM.startSpinFor(-900, degrees);
       LRM.startSpinFor(900, degrees);
       RRM.startSpinFor(-900, degrees);
-      
-    break;
+      break;
     case 2:
       //ram neutral tower
         //move forard
         //grab neutral tower
         //reverse
         //lift onto platform?
-      /*AM1.startSpinFor(25, degrees);
+      /*
+      AM1.startSpinFor(25, degrees);
       AM2.spinFor(25, degrees);
       LFM.startSpinFor(-2014, degrees);
       RFM.startSpinFor(2014, degrees);
@@ -165,14 +159,12 @@ CM.spin(forward);
       LFM.startSpinFor(1950, degrees);
       RFM.startSpinFor(-1950, degrees);
       LRM.startSpinFor(1950, degrees);
-      RRM.startSpinFor(-1950, degrees);*/
-      
-      
-       P1.close();
+      RRM.startSpinFor(-1950, degrees);
+      */
+      P1.close();
       wait(.5, sec);
-
-    break;
-    case 3:
+      break;
+    /*case 3:
       //DANCE
       LFM.startSpinFor(-360, degrees);
       RFM.startSpinFor(360, degrees);
@@ -182,7 +174,7 @@ CM.spin(forward);
       RFM.startSpinFor(900, degrees);
       LRM.startSpinFor(900, degrees);
       RRM.startSpinFor(900, degrees);
-    break;
+      break;*/
   }
 }
 
@@ -197,89 +189,79 @@ CM.spin(forward);
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void){
- 
   //initialization
-
+  bool onoff = false;  // Vacuum state
+  bool openclose = true;  // Pneumatics state
   while(1){
-    
-
     //Screen printing
-
     double velocityControl1 = (Controller1.Axis2.position() + 100);
     double velocityControl2 = (velocityControl1 / 200);
     Controller1.Screen.clearLine();
-    Controller1.Screen.print(velocityControl2 * 100);
     
+    //Controller1.Screen.print(velocityControl2 * 100);
+    Controller1.Screen.print(onoff);
+
     //X-Drive Controlling
-    
     LFM.spin(forward, (((-Controller1.Axis3.position()) - Controller1.Axis4.position() - (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
     LRM.spin(forward, (((-Controller1.Axis3.position()) + Controller1.Axis4.position() - (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
     RFM.spin(forward, ((Controller1.Axis3.position() - Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
     RRM.spin(forward, ((Controller1.Axis3.position() + Controller1.Axis4.position() -  (Controller1.Axis1.position() / 2))) * velocityControl2, percent);
-    /*
-    LFM.spin(forward, (-((-Controller1.Axis3.position()) - Controller1.Axis4.position() + Controller1.Axis1.position())) * velocityControl2, percent);
-    LRM.spin(forward, (-((-Controller1.Axis3.position()) + Controller1.Axis4.position() + Controller1.Axis1.position())) * velocityControl2, percent);
-    RFM.spin(forward, (-(Controller1.Axis3.position() - Controller1.Axis4.position() +  Controller1.Axis1.position())) * velocityControl2, percent);
-    RRM.spin(forward, (-(Controller1.Axis3.position() + Controller1.Axis4.position() +  Controller1.Axis1.position())) * velocityControl2, percent);
-    */
+
     //Velocity tapering and button control
-
-    if(Controller1.ButtonB.pressing()){
-      CM.spin(forward);
-    }
-    else if (Controller1.ButtonA.pressing()) {
-      CM.spin(reverse);
-    }
-    else {
-      CM.stop(hold);
-    }
-
     if(Controller1.ButtonL1.pressing()){
-     AM1.spin(forward);
-     AM2.spin(forward);
+      AM1.spin(forward);
+      AM2.spin(forward);
     }
     else if(Controller1.ButtonL2.pressing()){
-     AM1.spin(reverse);
-     AM2.spin(reverse);
+      AM1.spin(reverse);
+      AM2.spin(reverse);
     }
     else{
       AM1.stop(hold);
       AM2.stop(hold);
     }
-    if ((Controller1.Axis3.value() != 0) || (Controller1.Axis4.value() != 0) || (Controller1.Axis1.value() != 0) == true) {
-    }
-    else {
+
+    if((Controller1.Axis3.value() || Controller1.Axis4.value() || Controller1.Axis1.value()) == 0){
       StopAllChasis();
     }
 
-     
-    if(Controller1.ButtonUp.pressing()){
-      P1.close();
-      wait(.5, sec);
-    }
-
-    if(Controller1.ButtonDown.pressing()){
+    if(Controller1.ButtonR1.pressing() && openclose == true){
       P1.open();
-      wait(.5, sec);
+      wait(0.2, seconds);
+      PM.startSpinFor(175, degrees);
+      openclose = false;
     }
-    if(Controller1.ButtonLeft.pressing()){
-      PM.spinFor(180, degrees);
-      CM.spinFor(720, degrees);
-    }
-    if(Controller1.ButtonRight.pressing()){
-      PM.spinFor(-180, degrees);
-      CM.spinFor(-720, degrees);
+    else if(Controller1.ButtonR1.pressing()){
+      PM.startSpinFor(-175, degrees);
+      wait(0.2, seconds);
+      P1.close();
+      openclose = true;
     }
 
-}
+    if(onoff == true){
+      if(Controller1.ButtonR2.pressing()){
+        CM.spin(reverse);
+      }
+      else if (Controller1.ButtonX.pressing()) {
+        wait(0.1, seconds);
+        onoff=false;
+      }
+      else{
+        CM.spin(forward);
+      }
+    }
+    else if(Controller1.ButtonX.pressing() && onoff == false){
+      CM.stop(hold);
+      wait(0.1, seconds);
+      onoff = true;
+    }
+  }
   wait(20, msec); // Sleep the task for a short amount of time toc prevent wasted resources.
 }
 int main(){ // Main will set up the competition functions and callbacks.
-
   Competition.autonomous(autonomous); // Set up callbacks for autonomous and driver control periods.
   Competition.drivercontrol(usercontrol);
   pre_auton(); // Run the pre-autonomous function.
-  
   while(true){ // Prevent main from exiting with an infinite loop.
     wait(100, msec);
   }
